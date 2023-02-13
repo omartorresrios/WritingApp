@@ -19,7 +19,7 @@ struct Usage: Decodable {
     let totalTokens: Int
 }
 
-struct Completion: Decodable {
+struct TextCompletion: Decodable {
     let id: String
     let object: String
     let created: Int
@@ -34,7 +34,7 @@ final class Service {
         case invalidURL
     }
     
-    static func makeCompletion(with prompt: String) async throws -> Completion {
+    static func makeCompletion(with prompt: String) async throws -> TextCompletion {
         guard let url = URL(string: "https://api.openai.com/v1/completions") else {
             throw Error.invalidURL
         }
@@ -53,7 +53,7 @@ final class Service {
         let (data, _) = try await URLSession.shared.data(for: request)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let completion = try decoder.decode(Completion.self, from: data)
+        let completion = try decoder.decode(TextCompletion.self, from: data)
         return completion
     }
 }
