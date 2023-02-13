@@ -17,6 +17,7 @@ final class Service {
     enum Error: Swift.Error {
         case invalidURL
         case plistFailed
+        case invalidData
     }
     
     static func completionsUrlRequest(url: URL, openAIKey: String, jsonData: Data?) -> URLRequest {
@@ -42,7 +43,8 @@ final class Service {
               let openAIKey = plistDict.object(forKey: "openaiapikey") as? String else { throw Error.plistFailed }
         let request = completionsUrlRequest(url: url, openAIKey: openAIKey, jsonData: jsonData)
         
-        let (data, _) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw Error.invalidData }
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         let textCompletion = try decoder.decode(TextCompletion.self, from: data)
