@@ -37,26 +37,28 @@ final class Service {
     
     enum Error: Swift.Error {
         case invalidURL
+        case plistFailed
     }
     
-    static func makeCompletion(with prompt: String) async throws -> TextCompletion {
-        guard let url = URL(string: completionsURL) else {
-            throw Error.invalidURL
-        }
-        let json: [String: Any] = ["model": davinciModel,
-                                   "prompt": prompt,
-                                   "temperature": temperature,
-                                   "max_tokens": maxTokens]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+    static func completionsUrlRequest(url: URL, openAIKey: String, jsonData: Data?) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(openAIKey)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    static func makeCompletion(with prompt: String) async throws -> TextCompletion {
+        guard let url = URL(string: completionsURL) else { throw Error.invalidURL }
+        
+        let json: [String: Any] = ["model": "text-davinci-003", "prompt": prompt, "temperature": 0, "max_tokens": 1000]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         guard let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
               let dict = NSDictionary(contentsOfFile: path),
-              let openAIKey = dict.object(forKey: "openaiapikey") as? String else { throw Error.invalidURL }
-            request.setValue("Bearer \(openAIKey)", forHTTPHeaderField: "Authorization")
+              let openAIKey = dict.object(forKey: "openaiapikey") as? String else { throw Error.plistFailed }
+        let request = completionsUrlRequest(url: url, openAIKey: openAIKey, jsonData: jsonData)
         
         let (data, _) = try await URLSession.shared.data(for: request)
         let decoder = JSONDecoder()
