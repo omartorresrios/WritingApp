@@ -52,7 +52,10 @@ final class Service {
     static func makeCompletion(with prompt: String) async throws -> TextCompletion {
         guard let url = URL(string: completionsURL) else { throw Error.invalidURL }
         
-        let json: [String: Any] = ["model": "text-davinci-003", "prompt": prompt, "temperature": 0, "max_tokens": 1000]
+        let json: [String: Any] = ["model": davinciModel,
+                                   "prompt": prompt,
+                                   "temperature": temperature,
+                                   "max_tokens": maxTokens]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         guard let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
