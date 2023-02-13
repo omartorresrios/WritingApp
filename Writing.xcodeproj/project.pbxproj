@@ -12,6 +12,7 @@
 		A017CC5D297F8F5B00C8D40D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A017CC5C297F8F5B00C8D40D /* Assets.xcassets */; };
 		A017CC60297F8F5B00C8D40D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A017CC5F297F8F5B00C8D40D /* Preview Assets.xcassets */; };
 		A017CC67298191ED00C8D40D /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017CC66298191ED00C8D40D /* Service.swift */; };
+		A088F504299AD2A100581D81 /* OpenAICompletionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088F503299AD2A100581D81 /* OpenAICompletionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		A017CC5C297F8F5B00C8D40D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A017CC5F297F8F5B00C8D40D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A017CC66298191ED00C8D40D /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		A088F503299AD2A100581D81 /* OpenAICompletionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAICompletionModel.swift; sourceTree = "<group>"; };
 		A0B125072999893300083960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,6 +59,7 @@
 				A017CC58297F8F5A00C8D40D /* WritingApp.swift */,
 				A017CC5A297F8F5A00C8D40D /* ContentView.swift */,
 				A017CC66298191ED00C8D40D /* Service.swift */,
+				A088F503299AD2A100581D81 /* OpenAICompletionModel.swift */,
 				A0B125072999893300083960 /* Info.plist */,
 				A017CC5C297F8F5B00C8D40D /* Assets.xcassets */,
 				A017CC5E297F8F5B00C8D40D /* Preview Content */,
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A017CC5B297F8F5A00C8D40D /* ContentView.swift in Sources */,
+				A088F504299AD2A100581D81 /* OpenAICompletionModel.swift in Sources */,
 				A017CC59297F8F5A00C8D40D /* WritingApp.swift in Sources */,
 				A017CC67298191ED00C8D40D /* Service.swift in Sources */,
 			);

@@ -7,27 +7,6 @@
 
 import Foundation
 
-struct Choice: Decodable {
-    let text: String
-    let finishReason: String
-    let index: Int
-}
-
-struct Usage: Decodable {
-    let promptTokens: Int
-    let completionTokens: Int
-    let totalTokens: Int
-}
-
-struct TextCompletion: Decodable {
-    let id: String
-    let object: String
-    let created: Int
-    let model: String
-    let choices: [Choice]
-    let usage: Usage
-}
-
 final class Service {
     
     static let completionsURL = "https://api.openai.com/v1/completions"
@@ -58,15 +37,15 @@ final class Service {
                                    "max_tokens": maxTokens]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        guard let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
-              let dict = NSDictionary(contentsOfFile: path),
-              let openAIKey = dict.object(forKey: "openaiapikey") as? String else { throw Error.plistFailed }
+        guard let plistPath = Bundle.main.path(forResource: "Info", ofType: "plist"),
+              let plistDict = NSDictionary(contentsOfFile: plistPath),
+              let openAIKey = plistDict.object(forKey: "openaiapikey") as? String else { throw Error.plistFailed }
         let request = completionsUrlRequest(url: url, openAIKey: openAIKey, jsonData: jsonData)
         
         let (data, _) = try await URLSession.shared.data(for: request)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let completion = try decoder.decode(TextCompletion.self, from: data)
-        return completion
+        let textCompletion = try decoder.decode(TextCompletion.self, from: data)
+        return textCompletion
     }
 }
