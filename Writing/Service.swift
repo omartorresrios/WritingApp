@@ -30,15 +30,23 @@ struct TextCompletion: Decodable {
 
 final class Service {
     
+    static let completionsURL = "https://api.openai.com/v1/completions"
+    static let davinciModel = "text-davinci-003"
+    static let temperature = 0
+    static let maxTokens = 1000
+    
     enum Error: Swift.Error {
         case invalidURL
     }
     
     static func makeCompletion(with prompt: String) async throws -> TextCompletion {
-        guard let url = URL(string: "https://api.openai.com/v1/completions") else {
+        guard let url = URL(string: completionsURL) else {
             throw Error.invalidURL
         }
-        let json: [String: Any] = ["model": "text-davinci-003", "prompt": prompt, "temperature": 0, "max_tokens": 1000]
+        let json: [String: Any] = ["model": davinciModel,
+                                   "prompt": prompt,
+                                   "temperature": temperature,
+                                   "max_tokens": maxTokens]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
