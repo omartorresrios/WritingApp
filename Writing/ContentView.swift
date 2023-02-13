@@ -52,12 +52,7 @@ struct ContentView: View {
                             .background(.blue)
                             .cornerRadius(10)
                     }
-                    VStack(alignment: .leading) {
-                        Text("First paragraph")
-                            .background(.gray)
-                            .foregroundColor(.white)
-                        Text(finalNote)
-                    }
+                    Text(finalNote)
                 }
                 .padding()
                 
