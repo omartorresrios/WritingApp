@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var note = ""
     @State private var finalNote = ""
+    @State private var showTopics = false
     @FocusState private var noteFocused: Bool
     
     var body: some View {
@@ -39,8 +40,9 @@ struct ContentView: View {
                         Task {
                             do {
                                 let completion = try await Service.makeCompletion(with: note)
-                                finalNote = completion.choices.first?.text ?? ""
-                                note = ""
+                                let newNote = (completion.choices.first?.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: .newlines).filter{!$0.isEmpty}.joined(separator: "\n")
+                                finalNote = newNote
+                                showTopics.toggle()
                             } catch let error {
                                 print("something went wrong: ", error)
                             }
@@ -56,8 +58,11 @@ struct ContentView: View {
                     }
                 }
                 .padding()
-                
-                Spacer()
+            }
+            if showTopics {
+                TopicsView(topics: finalNote) {
+                    showTopics.toggle()
+                }
             }
         }
     }
