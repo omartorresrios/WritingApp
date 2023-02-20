@@ -13,7 +13,7 @@ struct ContentView: View {
     @FocusState private var noteFocused: Bool
     
     var body: some View {
-        ScrollView {
+        ZStack {
             VStack {
                 Text("New write")
                     .fontWeight(.bold)
@@ -21,17 +21,19 @@ struct ContentView: View {
                     .font(.headline)
                 
                 VStack(alignment: .leading) {
-                    TextEditor(text: $note)
-                        .focused($noteFocused)
-                        .frame(height: 300)
-                        .foregroundColor(.gray)
-                        .font(.body)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .onAppear {
-                            noteFocused = true
-                        }
-                    
-                    Divider()
+                    ScrollView {
+                        TextEditor(text: $note)
+                            .focused($noteFocused)
+                            .foregroundColor(.gray)
+                            .font(.body)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding()
+                            .onAppear {
+                                noteFocused = true
+                            }
+                    }
+                    Spacer()
+                    Spacer()
                     
                     Button {
                         Task {
@@ -44,15 +46,14 @@ struct ContentView: View {
                             }
                         }
                     } label: {
-                        Text("Generate text")
+                        Text("Get themes")
                             .font(.headline)
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(.blue)
+                            .background(Color(red: 48/255, green: 116/255, blue: 118/255))
                             .cornerRadius(10)
                     }
-                    Text(finalNote)
                 }
                 .padding()
                 
