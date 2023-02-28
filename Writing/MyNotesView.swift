@@ -9,30 +9,30 @@ import SwiftUI
 
 struct Note: Identifiable {
     let id: Int
-    let title: String
-    let body: String
+    var title: String
+    var body: String
 }
 
 struct MyNotesView: View {
     
-    var notes: [Note] {
-        return [Note(id: 1, title: "Some title", body: "some_body"),
-                Note(id: 2, title: "Another title", body: "another_body")]
-    }
+    @State private var notes: [Note] =
+        [Note(id: 1, title: "Some title", body: "A fake body"),
+         Note(id: 2, title: "Another title", body: "A fake body A fake body A fake body A fake body A fake body A fake body A fake body A fake body A fake body A fake body")]
     
     var body: some View {
         VStack {
-            Text("My notes")
             NavigationView {
                 List {
-                    ForEach(notes) { note in
+                    ForEach($notes) { $note in
                         NavigationLink {
-                            
+                            NoteView(note: $note)
                         } label: {
                             Text(note.title)
                         }
                     }
                 }
+                .navigationTitle("My notes")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
