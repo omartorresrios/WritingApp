@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Note: View {
+struct NoteDetails: View {
     @Binding var note: Note
     
     var body: some View {
@@ -25,8 +25,8 @@ struct Note: View {
 
 struct Note_Previews: PreviewProvider {
     static var previews: some View {
-        Note(note: .constant(Note(id: 1,
-                                      title: "Some title",
-                                      body: "Some body")))
+        NoteDetails(note: .constant(Note(id: 1,
+                                         title: "Some title",
+                                         body: "Some body")))
     }
 }

@@ -25,7 +25,7 @@ struct MyNotes: View {
                 List {
                     ForEach($notes) { $note in
                         NavigationLink {
-                            Note(note: $note)
+                            NoteDetails(note: $note)
                         } label: {
                             Text(note.title)
                         }
