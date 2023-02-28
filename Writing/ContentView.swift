@@ -60,7 +60,7 @@ struct ContentView: View {
                 .padding()
             }
             if showTopics {
-                TopicsView(topics: finalNote) {
+                Topics(topics: finalNote) {
                     showTopics.toggle()
                 }
             }

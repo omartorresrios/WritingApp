@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TopicsView: View {
+struct Topics: View {
     var topics: String
     let completion: () -> Void
     
@@ -39,7 +39,7 @@ struct TopicsView: View {
 
 struct TopicsView_Previews: PreviewProvider {
     static var previews: some View {
-        TopicsView(topics: "Some topic\nAnother topic\nAnother topic\nAnother topic\nAnother topic\nAnother topic",
+        Topics(topics: "Some topic\nAnother topic\nAnother topic\nAnother topic\nAnother topic\nAnother topic",
         completion: {})
     }
 }
