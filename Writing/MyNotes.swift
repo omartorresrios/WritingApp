@@ -13,7 +13,7 @@ struct Note: Identifiable {
     var body: String
 }
 
-struct MyNotesView: View {
+struct MyNotes: View {
     
     @State private var notes: [Note] =
         [Note(id: 1, title: "Some title", body: "A fake body"),
@@ -40,6 +40,6 @@ struct MyNotesView: View {
 
 struct MyNotesView_Previews: PreviewProvider {
     static var previews: some View {
-        MyNotesView()
+        MyNotes()
     }
 }
